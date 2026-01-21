@@ -45,6 +45,7 @@
             <input
               type="text"
               class="form-control"
+              class:is-invalid={urlError}
               id="url"
               bind:value={pageData.url}
               placeholder={$_('pages.editor.fields.url')}
@@ -221,6 +222,7 @@
   let isEditorEmpty = true;
   let pageData = data.pageData;
   let mode = data.mode;
+  let urlError = false;
   
   let initialPageData = JSON.parse(JSON.stringify(pageData));
 
@@ -229,6 +231,7 @@
           mode = data.mode;
           pageData = data.pageData;
           initialPageData = JSON.parse(JSON.stringify(pageData));
+          urlError = false;
       }
   }
 
@@ -247,6 +250,8 @@
   }
 
   async function onSavePage() {
+    urlError = false;
+
     if (pageData.url &&
             !pageData.url.startsWith('/') &&
             !/^https?:\/\//.test(pageData.url)) {
@@ -264,6 +269,9 @@
       });
 
       if (result.error) {
+        if (result.error === 'PAGE_URL_ALREADY_EXISTS') {
+            urlError = true;
+        }
         showToast(`plugins.${pluginId}.toasts.error-saving`, {
             error: $_("errors." + result.error)
         });
