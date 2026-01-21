@@ -5,6 +5,7 @@ import com.panomc.platform.db.DBEntity
 open class Page(
     val id: Long = -1,
     val title: String = "",
+    val linkName: String? = null,
     val url: String = "",
     val htmlContent: String = "",
     val active: Boolean = true,

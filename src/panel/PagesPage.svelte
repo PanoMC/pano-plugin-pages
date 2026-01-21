@@ -26,6 +26,7 @@
               <th scope="col" style="width: 60px;"></th>
               <th scope="col" style="width: 80px;">{$_('pages.list.table.id')}</th>
               <th scope="col">{$_('pages.list.table.title')}</th>
+              <th scope="col">{$_('pages.list.table.link-name')}</th>
               <th scope="col">{$_('pages.list.table.url')}</th>
               <th scope="col">{$_('pages.list.table.status')}</th>
             </tr>

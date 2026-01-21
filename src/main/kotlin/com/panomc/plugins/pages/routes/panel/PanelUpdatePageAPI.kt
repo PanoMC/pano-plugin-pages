@@ -46,6 +46,7 @@ class PanelUpdatePageAPI(
                 json(
                     objectSchema()
                         .requiredProperty("title", stringSchema())
+                        .optionalProperty("linkName", stringSchema())
                         .requiredProperty("url", stringSchema())
                         .requiredProperty("htmlContent", stringSchema())
                         .requiredProperty("active", booleanSchema())
@@ -77,10 +78,12 @@ class PanelUpdatePageAPI(
         }
 
         val title = data.getString("title")
+        val linkName = data.getString("linkName")?.takeIf { it.isNotBlank() } ?: title
 
         val updatedPage = Page(
             id = id,
             title = title,
+            linkName = linkName,
             url = url,
             htmlContent = data.getString("htmlContent"),
             active = data.getBoolean("active"),
@@ -98,6 +101,7 @@ class PanelUpdatePageAPI(
 
         val changes = io.vertx.core.json.JsonObject()
         if (existingPage.title != title) changes.put("title", title)
+        if (existingPage.linkName != linkName) changes.put("linkName", linkName)
         if (existingPage.url != url) changes.put("url", url)
         if (existingPage.htmlContent != data.getString("htmlContent")) changes.put("htmlContent", data.getString("htmlContent"))
         if (existingPage.active != data.getBoolean("active")) changes.put("active", data.getBoolean("active"))

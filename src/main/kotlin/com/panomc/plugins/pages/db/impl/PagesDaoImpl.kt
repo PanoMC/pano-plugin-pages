@@ -25,6 +25,7 @@ class PagesDaoImpl : PagesDao() {
                             CREATE TABLE IF NOT EXISTS `${getTablePrefix() + tableName}` (
                               `id` bigint NOT NULL AUTO_INCREMENT,
                               `title` MEDIUMTEXT NOT NULL,
+                              `linkName` MEDIUMTEXT,
                               `url` VARCHAR(255) NOT NULL,
                               `htmlContent` LONGTEXT,
                               `active` TINYINT(1) NOT NULL DEFAULT 1,
@@ -47,13 +48,14 @@ class PagesDaoImpl : PagesDao() {
 
     override suspend fun add(page: Page, sqlClient: SqlClient): Long {
         val query =
-            "INSERT INTO `${getTablePrefix() + tableName}` (`title`, `url`, `htmlContent`, `active`, `loginRequired`, `permissionNode`, `resetLayout`, `showBreadcrumb`, `target`, `registerToThemeNav`, `createdAt`, `updatedAt`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO `${getTablePrefix() + tableName}` (`title`, `linkName`, `url`, `htmlContent`, `active`, `loginRequired`, `permissionNode`, `resetLayout`, `showBreadcrumb`, `target`, `registerToThemeNav`, `createdAt`, `updatedAt`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
         val rows: RowSet<Row> = sqlClient
             .preparedQuery(query)
             .execute(
                 Tuple.of(
                     page.title,
+                    page.linkName,
                     page.url,
                     page.htmlContent,
                     page.active,
@@ -74,13 +76,14 @@ class PagesDaoImpl : PagesDao() {
 
     override suspend fun update(page: Page, sqlClient: SqlClient) {
         val query =
-            "UPDATE `${getTablePrefix() + tableName}` SET `title` = ?, `url` = ?, `htmlContent` = ?, `active` = ?, `loginRequired` = ?, `permissionNode` = ?, `resetLayout` = ?, `showBreadcrumb` = ?, `target` = ?, `registerToThemeNav` = ?, `updatedAt` = ? WHERE `id` = ?"
+            "UPDATE `${getTablePrefix() + tableName}` SET `title` = ?, `linkName` = ?, `url` = ?, `htmlContent` = ?, `active` = ?, `loginRequired` = ?, `permissionNode` = ?, `resetLayout` = ?, `showBreadcrumb` = ?, `target` = ?, `registerToThemeNav` = ?, `updatedAt` = ? WHERE `id` = ?"
 
         sqlClient
             .preparedQuery(query)
             .execute(
                 Tuple.of(
                     page.title,
+                    page.linkName,
                     page.url,
                     page.htmlContent,
                     page.active,

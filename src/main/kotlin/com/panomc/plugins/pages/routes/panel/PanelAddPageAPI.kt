@@ -43,6 +43,7 @@ class PanelAddPageAPI(
                 Bodies.json(
                     objectSchema()
                         .requiredProperty("title", stringSchema())
+                        .optionalProperty("linkName", stringSchema())
                         .requiredProperty("url", stringSchema())
                         .requiredProperty("htmlContent", stringSchema())
                         .requiredProperty("active", booleanSchema())
@@ -70,9 +71,11 @@ class PanelAddPageAPI(
         }
 
         val title = data.getString("title")
+        val linkName = data.getString("linkName")?.takeIf { it.isNotBlank() } ?: title
 
         val page = Page(
             title = title,
+            linkName = linkName,
             url = url,
             htmlContent = data.getString("htmlContent"),
             active = data.getBoolean("active"),

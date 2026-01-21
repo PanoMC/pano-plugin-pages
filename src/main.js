@@ -93,7 +93,7 @@ export default class PagesPlugin extends PanoPlugin {
                     if (!navItems.find((n) => n.href === page.url)) {
                       navItems.push({
                         href: page.url,
-                        text: page.title, // Literal text
+                        text: page.linkName || page.title, // Literal text
                         target: page.target,
                         startsWith: false,
                         loginRequired: page.loginRequired,

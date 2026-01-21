@@ -39,6 +39,22 @@
               <label for="title">{$_('pages.editor.fields.title')}</label>
             </div>
           </div>
+          
+          <!-- Link Name -->
+          <div class="input-group mb-4">
+            <div class="form-floating flex-grow-1">
+              <input
+                type="text"
+                class="form-control"
+                id="linkName"
+                bind:value={pageData.linkName}
+                placeholder={$_('pages.editor.fields.link-name')} />
+              <label for="linkName">{$_('pages.editor.fields.link-name')}</label>
+            </div>
+            <span class="input-group-text bg-white text-muted">
+                <i class="fas fa-info-circle" use:tooltip={[$_('pages.editor.tooltips.link-name')]}></i>
+            </span>
+          </div>
 
           <!-- URL Path -->
           <div class="form-floating">
@@ -192,6 +208,7 @@
           pageData: {
             id: null,
             title: '',
+            linkName: '',
             url: '',
             htmlContent: '',
             active: true,

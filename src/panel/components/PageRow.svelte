@@ -42,6 +42,7 @@
       {page.title}
     </button>
   </td>
+  <td class="align-middle">{page.linkName || '-'}</td>
   <td class="align-middle text-muted small">{page.url}</td>
   <td class="align-middle">
     {#if page.active}
@@ -57,9 +58,9 @@
 </tr>
 
 <script>
-    import {_} from '../../main';
+  import {_} from '../../main';
 
-    export let page;
+  export let page;
   export let onEditClick;
   export let onDeleteClick;
 </script>

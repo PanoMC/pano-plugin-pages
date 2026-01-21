@@ -20,6 +20,7 @@
             "table": {
                 "id": "ID",
                 "title": "Title",
+                "link-name": "Link Name",
                 "url": "URL",
                 "status": "Status",
                 "actions": "Actions",
@@ -36,6 +37,7 @@
             "edit-title": "Edit Page",
             "fields": {
                 "title": "Page Title",
+                "link-name": "Link Name",
                 "url": "URL Path (e.g. /my-page)",
                 "html-content": "HTML Content",
                 "active": "Active",
@@ -51,6 +53,7 @@
                 "register-to-nav": "Register to Theme Navigation"
             },
             "tooltips": {
+                "link-name": "This text will be used in the navigation menu. Defaults to Page Title if empty.",
                 "url": "You can use path parameters like /blog/:slug",
                 "reset-layout": "If enabled, the page will be rendered without the theme's default layout (header, footer, sidebar)."
             },

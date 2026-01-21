@@ -20,6 +20,7 @@
             "table": {
                 "id": "ID",
                 "title": "Başlık",
+                "link-name": "Link Adı",
                 "url": "URL",
                 "status": "Durum",
                 "actions": "İşlemler",
@@ -36,6 +37,7 @@
             "edit-title": "Sayfayı Düzenle",
             "fields": {
                 "title": "Sayfa Başlığı",
+                "link-name": "Link Adı",
                 "url": "URL Yolu (örn. /sayfam)",
                 "html-content": "HTML İçeriği",
                 "active": "Aktif",
@@ -51,6 +53,7 @@
                 "register-to-nav": "Tema Navigasyonuna Kaydet"
             },
             "tooltips": {
+                "link-name": "Bu metin navigasyon menüsünde kullanılacaktır. Boş bırakılırsa varsayılan olarak Sayfa Başlığı kullanılır.",
                 "url": "/blog/:slug gibi yol parametrelerini kullanabilirsiniz",
                 "reset-layout": "Etkinleştirilirse, sayfa temanın varsayılan düzeni (header, footer, sidebar) olmadan oluşturulur."
             },
