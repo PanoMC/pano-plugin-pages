@@ -126,6 +126,9 @@
   }
 
   setDeleteCallback(() => {
+    if (data.pages.length === 1 && data.page > 1) {
+      data.page--;
+    }
     refreshData();
   });
 </script>
