@@ -1,0 +1,269 @@
+<article class="container vstack gap-3">
+  <div class="d-flex align-items-center mb-2">
+    <a
+      href="{base}/pages"
+      class="btn btn-link"
+      role="button">
+      <i class="fas fa-arrow-left"></i>
+      <span class="d-lg-inline d-none ms-2"> {$_('pages.editor.back')}</span>
+    </a>
+
+    <button
+      type="button"
+      class="btn btn-primary ms-auto px-4"
+      class:disabled={loading || !isFormValid || (mode === 'edit' && !isChanged)}
+      disabled={loading || !isFormValid || (mode === 'edit' && !isChanged)}
+      on:click={onSavePage}>
+      <i class="fas fa-save me-2"></i>
+      {$_('pages.editor.save')}
+    </button>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-8 border-end">
+          <!-- Title -->
+          <div class="input-group mb-4">
+            {#if mode === 'edit'}
+              <span class="input-group-text">#{pageData.id}</span>
+            {/if}
+            <div class="form-floating flex-grow-1">
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                id="title"
+                bind:value={pageData.title}
+                placeholder={$_('pages.editor.fields.title')}
+                required />
+              <label for="title">{$_('pages.editor.fields.title')}</label>
+            </div>
+          </div>
+
+          <!-- URL Path -->
+          <div class="form-floating">
+            <input
+              type="text"
+              class="form-control"
+              id="url"
+              bind:value={pageData.url}
+              placeholder={$_('pages.editor.fields.url')}
+              required
+              use:tooltip={[$_('pages.editor.tooltips.url')]} />
+            <label for="url">{$_('pages.editor.fields.url')}</label>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <!-- Status -->
+          <div class="form-check form-switch mb-4">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="pageActive"
+              role="switch"
+              bind:checked={pageData.active} />
+            <label class="form-check-label ms-2 fw-bold" for="pageActive">
+      {pageData.active
+        ? $_('pages.list.status.active')
+        : $_('pages.list.status.passive')}
+            </label>
+          </div>
+
+          <!-- Configuration -->
+          <div class="vstack gap-3">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="registerToNav"
+                bind:checked={pageData.registerToThemeNav} />
+              <label class="form-check-label ms-2" for="registerToNav">
+                {$_('pages.editor.fields.register-to-nav')}
+              </label>
+            </div>
+
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="pageLoginRequired"
+                bind:checked={pageData.loginRequired} />
+              <label class="form-check-label ms-2" for="pageLoginRequired">
+                {$_('pages.editor.fields.login-required')}
+              </label>
+            </div>
+
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="resetLayout"
+                bind:checked={pageData.resetLayout}
+                use:tooltip={[$_('pages.editor.tooltips.reset-layout')]} />
+              <label class="form-check-label ms-2" for="resetLayout">
+                {$_('pages.editor.fields.reset-layout')}
+                <i class="fas fa-question-circle ms-1 opacity-50"></i>
+              </label>
+            </div>
+
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="showBreadcrumb"
+                bind:checked={pageData.showBreadcrumb} />
+              <label class="form-check-label ms-2" for="showBreadcrumb">
+                {$_('pages.editor.fields.show-breadcrumb')}
+              </label>
+            </div>
+
+            <div class="form-floating">
+              <input
+                type="text"
+                class="form-control"
+                id="permissionNode"
+                bind:value={pageData.permissionNode}
+                placeholder="my.custom.permission" />
+              <label for="permissionNode">{$_('pages.editor.fields.permission-node')}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card flex-grow-1">
+    <div class="card-body p-0 d-flex flex-column">
+      <!-- Editor -->
+      <Editor
+        bind:content={pageData.htmlContent}
+        bind:isEmpty={isEditorEmpty}
+        showHtml={true}
+        showPreview={true}
+        contentStyles="min-height: 600px;" />
+    </div>
+  </div>
+
+</article>
+
+<script context="module">
+  import ApiUtil from '@panomc/sdk/utils/api';
+
+  import {pluginId} from '../main';
+
+  export async function load(event) {
+    const { params, parent } = event;
+    const { pageTitle } = await parent();
+
+    if (params.id) {
+      const id = params.id;
+      pageTitle.set(`plugins.${pluginId}.pages.editor.edit-title`);
+
+      const body = await ApiUtil.get({
+        path: `/api/panel/pages/${id}`,
+        request: event,
+      });
+
+      if (body.error) {
+        return { data: {pageData: {}, mode: 'error', error: body.error} };
+      }
+      return { data: { pageData: body.page, mode: 'edit'} };
+    } else {
+      pageTitle.set(`plugins.${pluginId}.pages.editor.create-title`);
+      return {
+        data: {
+          pageData: {
+            id: null,
+            title: '',
+            url: '',
+            htmlContent: '',
+            active: true,
+            loginRequired: false,
+            permissionNode: '',
+            resetLayout: false,
+            showBreadcrumb: true,
+            registerToThemeNav: true,
+          },
+          mode: 'create',
+        }
+      }
+    }
+  }
+</script>
+
+<script>
+  import { Editor } from '@panomc/sdk/components';
+  import { showToast } from '@panomc/sdk/toasts';
+  import { base, goto } from '@panomc/sdk/svelte';
+  import { _ } from '../main';
+  import tooltip from "@panomc/sdk/utils/tooltip"
+
+  export let data;
+
+  let loading = false;
+  let isEditorEmpty = true;
+  let pageData = data.pageData;
+  let mode = data.mode;
+  
+  let initialPageData = JSON.parse(JSON.stringify(pageData));
+
+  $: {
+      if (data.mode !== mode || (data.pageData && data.pageData.id !== pageData.id)) {
+          mode = data.mode;
+          pageData = data.pageData;
+          initialPageData = JSON.parse(JSON.stringify(pageData));
+      }
+  }
+
+  $: isFormValid = (() => {
+    if (!pageData.title || pageData.title.trim() === '') return false;
+    if (!pageData.url || pageData.url.trim() === '') return false;
+    if (isEditorEmpty) return false;
+    return true;
+  })();
+
+  $: isChanged =
+    mode === 'create' || JSON.stringify(pageData) !== JSON.stringify(initialPageData);
+
+  function goBack() {
+    goto(`${base}/pages`);
+  }
+
+  async function onSavePage() {
+    if (!isFormValid) return;
+
+    loading = true;
+
+    try {
+      const result = await ApiUtil[mode === 'create' ? 'post' : 'put']({
+        path: mode === 'create' ? '/api/panel/pages' : `/api/panel/pages/${pageData.id}`,
+        body: pageData,
+      });
+
+      if (result.error) {
+        showToast(`plugins.${pluginId}.toasts.error-saving`, {
+            error: $_("errors." + result.error)
+        });
+      } else {
+        showToast(
+          mode === 'create'
+            ? `plugins.${pluginId}.toasts.page-added`
+            : `plugins.${pluginId}.toasts.page-updated`
+        );
+        goBack();
+      }
+    } catch (e) {
+      console.error(e);
+      showToast(`plugins.${pluginId}.toasts.error-saving`, {
+        error: $_(`errors.ERROR_GENERAL`),
+      });
+    } finally {
+      loading = false;
+    }
+  }
+</script>

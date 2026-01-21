@@ -1,3 +1,75 @@
 {
-  "hello-world": "Merhaba dünya!"
+    "activity-logs": {
+        "CREATED_PAGE": "<b>{username}</b>, <b>{title}</b> isimli özel sayfayı oluşturdu.",
+        "UPDATED_PAGE": "<b>{username}</b>, <b>{title}</b> isimli özel sayfayı güncelledi.",
+        "DELETED_PAGE": "<b>{username}</b>, <b>{title}</b> isimli özel sayfayı sildi."
+    },
+    "permissions": {
+        "MANAGE_PAGES": {
+            "title": "Sayfaları Yönet",
+            "description": "Özel sayfaları yönetmeye izin verir."
+        }
+    },
+    "pages": {
+        "nav": "Sayfalar",
+        "list": {
+            "title": "Özel Sayfalar",
+            "total-count": "{count} Özel Sayfa",
+            "description": "Web siteniz için özel sayfalar oluşturun ve yönetin.",
+            "add-page": "Sayfa Ekle",
+            "table": {
+                "id": "ID",
+                "title": "Başlık",
+                "url": "URL",
+                "status": "Durum",
+                "actions": "İşlemler",
+                "actions-edit": "Düzenle",
+                "actions-delete": "Sil"
+            },
+            "status": {
+                "active": "Aktif",
+                "passive": "Pasif"
+            }
+        },
+        "editor": {
+            "create-title": "Sayfa Oluştur",
+            "edit-title": "Sayfayı Düzenle",
+            "fields": {
+                "title": "Sayfa Başlığı",
+                "url": "URL Yolu (örn. /sayfam)",
+                "html-content": "HTML İçeriği",
+                "active": "Aktif",
+                "login-required": "Giriş Gerekli",
+                "permission-node": "Gerekli Yetki Düğümü (Opsiyonel)",
+                "reset-layout": "Düzeni Sıfırla (Tam Ekran)",
+                "show-breadcrumb": "Breadcrumb Göster",
+                "register-to-nav": "Tema Navigasyonuna Kaydet"
+            },
+            "tooltips": {
+                "url": "/blog/:slug gibi yol parametrelerini kullanabilirsiniz",
+                "reset-layout": "Etkinleştirilirse, sayfa temanın varsayılan düzeni (header, footer, sidebar) olmadan oluşturulur."
+            },
+            "save": "Sayfayı Kaydet",
+            "back": "Sayfalar"
+        }
+    },
+    "errors": {
+        "PAGE_URL_ALREADY_EXISTS": "Bu URL'ye sahip bir sayfa zaten mevcut.",
+        "ERROR_UNKNOWN": "Bilinmeyen hata",
+        "ERROR_GENERAL": "Beklenmedik bir hata oluştu. Lütfen daha sonra tekrar deneyiniz."
+    },
+    "modals": {
+        "delete": {
+            "description": "<b>{title}</b> isimli sayfayı silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+            "confirm": "Sil",
+            "cancel": "İptal"
+        }
+    },
+    "toasts": {
+        "page-added": "Sayfa başarıyla eklendi.",
+        "page-updated": "Sayfa başarıyla güncellendi.",
+        "page-deleted": "Sayfa başarıyla silindi.",
+        "error-saving": "Sayfa kaydedilirken hata oluştu: {error}",
+        "error-deleting": "Sayfa silinirken hata oluştu: {error}"
+    }
 }

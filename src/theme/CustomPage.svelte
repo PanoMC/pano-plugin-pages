@@ -1,0 +1,83 @@
+
+
+<article class:container={!data.page.resetLayout} class:py-5={!data.page.resetLayout}>
+  {#if !data.page.resetLayout && data.page.showBreadcrumb}
+    <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{data.page.title}</li>
+      </ol>
+    </nav>
+    <h1 class="mb-4">{data.page.title}</h1>
+  {/if}
+
+  {#if data.page.htmlContent}
+    {@html data.page.htmlContent}
+  {:else}
+    <div class="alert alert-info">No content available for this page.</div>
+  {/if}
+</article>
+
+<script context="module">
+  import ApiUtil from '@panomc/sdk/utils/api';
+  import {error, redirect} from '@panomc/sdk/svelte';
+
+  export async function load(event) {
+    const { params, parent } = event;
+    const { pageTitle, session } = await parent();
+
+    const url = event.url.pathname;
+
+    // First try a direct match with the more efficient API
+    const res = await ApiUtil.get({
+      path: `/api/pages/url?url=${encodeURIComponent(url)}`,
+      request: event,
+    });
+
+    if (res.page) {
+      if (res.page.loginRequired && !session?.user) {
+        throw redirect(302, '/');
+      }
+
+      pageTitle.set(res.page.title);
+      console.log("geldi", res.page.title)
+      return { data: {page: res.page} };
+    }
+
+    // Fallback: Fetch all active pages to check for dynamic parameter matches (:param)
+    const allRes = await ApiUtil.get({
+      path: '/api/pages',
+      request: event,
+    });
+
+    if (allRes.status === 'SUCCESS' && allRes && allRes.pages) {
+      const page = allRes.pages.find((p) => {
+        const cleanUrl = url.replace(/\/$/, '') || '/';
+        const cleanPUrl = p.url.replace(/\/$/, '') || '/';
+
+        if (cleanPUrl.includes(':')) {
+          const parts = cleanPUrl.split('/');
+          const urlParts = cleanUrl.split('/');
+          if (parts.length !== urlParts.length) return false;
+          return parts.every((part, i) => part.startsWith(':') || part === urlParts[i]);
+        }
+        return false; // Direct matches already handled above
+      });
+
+      if (page) {
+        if (page.loginRequired && !session?.user) {
+          throw redirect(302, '/');
+        }
+
+        pageTitle.set(page.title);
+        return { data: { page } };
+      }
+    }
+
+    return error(404, 'Page not found');
+  }
+</script>
+
+<script>
+  export let data;
+</script>
