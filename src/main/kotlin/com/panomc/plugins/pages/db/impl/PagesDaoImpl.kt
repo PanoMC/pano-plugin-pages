@@ -32,6 +32,7 @@ class PagesDaoImpl : PagesDao() {
                               `permissionNode` VARCHAR(255),
                               `resetLayout` TINYINT(1) NOT NULL DEFAULT 0,
                               `showBreadcrumb` TINYINT(1) NOT NULL DEFAULT 1,
+                              `target` VARCHAR(20) NOT NULL DEFAULT '_self',
                               `registerToThemeNav` TINYINT(1) NOT NULL DEFAULT 1,
                               `createdAt` BIGINT(20) NOT NULL,
                               `updatedAt` BIGINT(20) NOT NULL,
@@ -46,7 +47,7 @@ class PagesDaoImpl : PagesDao() {
 
     override suspend fun add(page: Page, sqlClient: SqlClient): Long {
         val query =
-            "INSERT INTO `${getTablePrefix() + tableName}` (`title`, `url`, `htmlContent`, `active`, `loginRequired`, `permissionNode`, `resetLayout`, `showBreadcrumb`, `registerToThemeNav`, `createdAt`, `updatedAt`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            "INSERT INTO `${getTablePrefix() + tableName}` (`title`, `url`, `htmlContent`, `active`, `loginRequired`, `permissionNode`, `resetLayout`, `showBreadcrumb`, `target`, `registerToThemeNav`, `createdAt`, `updatedAt`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
         val rows: RowSet<Row> = sqlClient
             .preparedQuery(query)
@@ -60,6 +61,7 @@ class PagesDaoImpl : PagesDao() {
                     page.permissionNode,
                     page.resetLayout,
                     page.showBreadcrumb,
+                    page.target,
                     page.registerToThemeNav,
                     page.createdAt,
                     page.updatedAt
@@ -72,7 +74,7 @@ class PagesDaoImpl : PagesDao() {
 
     override suspend fun update(page: Page, sqlClient: SqlClient) {
         val query =
-            "UPDATE `${getTablePrefix() + tableName}` SET `title` = ?, `url` = ?, `htmlContent` = ?, `active` = ?, `loginRequired` = ?, `permissionNode` = ?, `resetLayout` = ?, `showBreadcrumb` = ?, `registerToThemeNav` = ?, `updatedAt` = ? WHERE `id` = ?"
+            "UPDATE `${getTablePrefix() + tableName}` SET `title` = ?, `url` = ?, `htmlContent` = ?, `active` = ?, `loginRequired` = ?, `permissionNode` = ?, `resetLayout` = ?, `showBreadcrumb` = ?, `target` = ?, `registerToThemeNav` = ?, `updatedAt` = ? WHERE `id` = ?"
 
         sqlClient
             .preparedQuery(query)
@@ -86,6 +88,7 @@ class PagesDaoImpl : PagesDao() {
                     page.permissionNode,
                     page.resetLayout,
                     page.showBreadcrumb,
+                    page.target,
                     page.registerToThemeNav,
                     page.updatedAt,
                     page.id

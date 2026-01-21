@@ -50,6 +50,7 @@ class PanelAddPageAPI(
                         .optionalProperty("permissionNode", stringSchema())
                         .requiredProperty("resetLayout", booleanSchema())
                         .requiredProperty("showBreadcrumb", booleanSchema())
+                        .requiredProperty("target", stringSchema())
                         .requiredProperty("registerToThemeNav", booleanSchema())
                 )
             )
@@ -79,6 +80,7 @@ class PanelAddPageAPI(
             permissionNode = data.getString("permissionNode"),
             resetLayout = data.getBoolean("resetLayout"),
             showBreadcrumb = data.getBoolean("showBreadcrumb"),
+            target = data.getString("target"),
             registerToThemeNav = data.getBoolean("registerToThemeNav")
         )
 

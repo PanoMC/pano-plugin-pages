@@ -12,6 +12,7 @@ open class Page(
     val permissionNode: String? = null,
     val resetLayout: Boolean = false,
     val showBreadcrumb: Boolean = true,
+    val target: String = "_self",
     val registerToThemeNav: Boolean = true,
     val createdAt: Long = System.currentTimeMillis(),
     val updatedAt: Long = System.currentTimeMillis(),

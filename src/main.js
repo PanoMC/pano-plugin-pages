@@ -94,6 +94,7 @@ export default class PagesPlugin extends PanoPlugin {
                       navItems.push({
                         href: page.url,
                         text: page.title, // Literal text
+                        target: page.target,
                         startsWith: false,
                         loginRequired: page.loginRequired,
                         permission: page.permissionNode,

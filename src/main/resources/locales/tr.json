@@ -41,6 +41,11 @@
                 "active": "Aktif",
                 "login-required": "Giriş Gerekli",
                 "permission-node": "Gerekli Yetki Düğümü (Opsiyonel)",
+                "target": "Link Açılış Şekli",
+                "target-options": {
+                    "normal": "Normal (Aynı Sekme)",
+                    "external": "Harici (Yeni Sekme)"
+                },
                 "reset-layout": "Düzeni Sıfırla (Tam Ekran)",
                 "show-breadcrumb": "Breadcrumb Göster",
                 "register-to-nav": "Tema Navigasyonuna Kaydet"

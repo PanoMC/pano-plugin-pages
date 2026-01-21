@@ -53,6 +53,7 @@ class PanelUpdatePageAPI(
                         .optionalProperty("permissionNode", stringSchema())
                         .requiredProperty("resetLayout", booleanSchema())
                         .requiredProperty("showBreadcrumb", booleanSchema())
+                        .requiredProperty("target", stringSchema())
                         .requiredProperty("registerToThemeNav", booleanSchema())
                 )
             )
@@ -87,6 +88,7 @@ class PanelUpdatePageAPI(
             permissionNode = data.getString("permissionNode"),
             resetLayout = data.getBoolean("resetLayout"),
             showBreadcrumb = data.getBoolean("showBreadcrumb"),
+            target = data.getString("target"),
             registerToThemeNav = data.getBoolean("registerToThemeNav"),
             createdAt = existingPage.createdAt,
             updatedAt = System.currentTimeMillis()
@@ -103,6 +105,7 @@ class PanelUpdatePageAPI(
         if (existingPage.permissionNode != data.getString("permissionNode")) changes.put("permissionNode", data.getString("permissionNode"))
         if (existingPage.resetLayout != data.getBoolean("resetLayout")) changes.put("resetLayout", data.getBoolean("resetLayout"))
         if (existingPage.showBreadcrumb != data.getBoolean("showBreadcrumb")) changes.put("showBreadcrumb", data.getBoolean("showBreadcrumb"))
+        if (existingPage.target != data.getString("target")) changes.put("target", data.getString("target"))
         if (existingPage.registerToThemeNav != data.getBoolean("registerToThemeNav")) changes.put("registerToThemeNav", data.getBoolean("registerToThemeNav"))
 
         val userId = authProvider.getUserIdFromRoutingContext(context)

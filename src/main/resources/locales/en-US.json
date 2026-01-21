@@ -41,6 +41,11 @@
                 "active": "Active",
                 "login-required": "Login Required",
                 "permission-node": "Required Permission Node (Optional)",
+                "target": "Link Target",
+                "target-options": {
+                    "normal": "Normal (Same Tab)",
+                    "external": "External (New Tab)"
+                },
                 "reset-layout": "Reset Layout (Full Screen)",
                 "show-breadcrumb": "Show Breadcrumb",
                 "register-to-nav": "Register to Theme Navigation"

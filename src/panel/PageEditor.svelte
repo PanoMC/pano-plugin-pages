@@ -96,6 +96,17 @@
               </label>
             </div>
 
+            <div class="form-floating">
+              <select
+                class="form-select"
+                id="linkTarget"
+                bind:value={pageData.target}>
+                <option value="_self">{$_('pages.editor.fields.target-options.normal')}</option>
+                <option value="_blank">{$_('pages.editor.fields.target-options.external')}</option>
+              </select>
+              <label for="linkTarget">{$_('pages.editor.fields.target')}</label>
+            </div>
+
             <div class="form-check form-switch">
               <input
                 class="form-check-input"
@@ -185,6 +196,7 @@
             active: true,
             loginRequired: false,
             permissionNode: '',
+            target: '_self',
             resetLayout: false,
             showBreadcrumb: true,
             registerToThemeNav: true,
