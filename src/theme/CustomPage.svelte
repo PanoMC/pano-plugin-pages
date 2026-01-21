@@ -19,7 +19,7 @@
 </article>
 
 <script context="module">
-  import ApiUtil from '@panomc/sdk/utils/api';
+  import ApiUtil, {buildQueryParams} from '@panomc/sdk/utils/api';
   import {error, redirect} from '@panomc/sdk/svelte';
 
   export async function load(event) {
@@ -29,8 +29,9 @@
     const url = event.url.pathname;
 
     // First try a direct match with the more efficient API
+    const queryParams = buildQueryParams({url})
     const res = await ApiUtil.get({
-      path: `/api/pages/url?url=${encodeURIComponent(url)}`,
+      path: `/api/pages/url${queryParams}`,
       request: event,
     });
 
@@ -40,7 +41,6 @@
       }
 
       pageTitle.set(res.page.title);
-      console.log("geldi", res.page.title)
       return { data: {page: res.page} };
     }
 

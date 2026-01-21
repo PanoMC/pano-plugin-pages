@@ -235,6 +235,12 @@
   }
 
   async function onSavePage() {
+    if (pageData.url &&
+            !pageData.url.startsWith('/') &&
+            !/^https?:\/\//.test(pageData.url)) {
+      pageData.url = '/' + pageData.url;
+    }
+
     if (!isFormValid) return;
 
     loading = true;
