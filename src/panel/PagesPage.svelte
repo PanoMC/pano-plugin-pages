@@ -20,7 +20,7 @@
       <NoContent />
     {:else}
       <div class="table-responsive">
-        <table class="table table-hover mb-0">
+        <table class="table table-hover">
           <thead>
             <tr>
               <th scope="col" style="width: 60px;"></th>

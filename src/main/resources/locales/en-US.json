@@ -1,83 +1,83 @@
 {
-    "activity-logs": {
-        "CREATED_PAGE": "<b>{username}</b> created custom page <b>{title}</b>.",
-        "UPDATED_PAGE": "<b>{username}</b> updated custom page <b>{title}</b>.",
-        "DELETED_PAGE": "<b>{username}</b> deleted custom page <b>{title}</b>."
-    },
-    "permissions": {
-        "MANAGE_PAGES": {
-            "title": "Manage Pages",
-            "description": "Allows managing custom pages."
-        }
-    },
-    "pages": {
-        "nav": "Pages",
-        "list": {
-            "title": "Custom Pages",
-            "total-count": "{count} Custom Pages",
-            "description": "Create and manage custom pages for your website.",
-            "add-page": "Add Page",
-            "table": {
-                "id": "ID",
-                "title": "Title",
-                "link-name": "Link Name",
-                "url": "URL",
-                "status": "Status",
-                "actions": "Actions",
-                "actions-edit": "Edit",
-                "actions-delete": "Delete"
-            },
-            "status": {
-                "active": "Active",
-                "passive": "Passive"
-            }
-        },
-        "editor": {
-            "create-title": "Create Page",
-            "edit-title": "Edit Page",
-            "fields": {
-                "title": "Page Title",
-                "link-name": "Link Name",
-                "url": "URL Path (e.g. /my-page)",
-                "html-content": "HTML Content",
-                "active": "Active",
-                "login-required": "Login Required",
-                "permission-node": "Required Permission Node (Optional)",
-                "target": "Link Target",
-                "target-options": {
-                    "normal": "Normal (Same Tab)",
-                    "external": "External (New Tab)"
-                },
-                "reset-layout": "Reset Layout (Full Screen)",
-                "show-breadcrumb": "Show Breadcrumb",
-                "register-to-nav": "Register to Theme Navigation"
-            },
-            "tooltips": {
-                "link-name": "This text will be used in the navigation menu. Defaults to Page Title if empty.",
-                "url": "You can use path parameters like /blog/:slug",
-                "reset-layout": "If enabled, the page will be rendered without the theme's default layout (header, footer, sidebar)."
-            },
-            "save": "Save Page",
-            "back": "Pages"
-        }
-    },
-    "errors": {
-        "PAGE_URL_ALREADY_EXISTS": "A page with this URL already exists.",
-        "ERROR_UNKNOWN": "Unknown error",
-        "ERROR_GENERAL": "An unexpected error occurred. Please try again later."
-    },
-    "modals": {
-        "delete": {
-            "description": "Are you sure you want to delete page <b>{title}</b>? This action cannot be undone.",
-            "confirm": "Delete",
-            "cancel": "Cancel"
-        }
-    },
-    "toasts": {
-        "page-added": "Page added successfully.",
-        "page-updated": "Page updated successfully.",
-        "page-deleted": "Page deleted successfully.",
-        "error-saving": "Error while saving page: {error}",
-        "error-deleting": "Error while deleting page: {error}"
+  "activity-logs": {
+    "CREATED_PAGE": "<b>{username}</b> created custom page <b>{title}</b>.",
+    "UPDATED_PAGE": "<b>{username}</b> updated custom page <b>{title}</b>.",
+    "DELETED_PAGE": "<b>{username}</b> deleted custom page <b>{title}</b>."
+  },
+  "permissions": {
+    "MANAGE_PAGES": {
+      "title": "Manage Pages",
+      "description": "Allows managing custom pages."
     }
+  },
+  "pages": {
+    "nav": "Pages",
+    "list": {
+      "title": "Custom Pages",
+      "total-count": "{count} Custom Pages",
+      "description": "Create and manage custom pages for your website.",
+      "add-page": "Create Page",
+      "table": {
+        "id": "ID",
+        "title": "Title",
+        "link-name": "Link Name",
+        "url": "URL",
+        "status": "Status",
+        "actions": "Actions",
+        "actions-edit": "Edit",
+        "actions-delete": "Delete"
+      },
+      "status": {
+        "active": "Active",
+        "passive": "Passive"
+      }
+    },
+    "editor": {
+      "create-title": "Create Page",
+      "edit-title": "Edit Page",
+      "fields": {
+        "title": "Page Title",
+        "link-name": "Link Name",
+        "url": "URL Path (e.g. /my-page)",
+        "html-content": "HTML Content",
+        "active": "Active",
+        "login-required": "Login Required",
+        "permission-node": "Permission (Optional)",
+        "target": "Link Target",
+        "target-options": {
+          "normal": "Normal (Same Tab)",
+          "external": "External (New Tab)"
+        },
+        "reset-layout": "Full Screen Page",
+        "show-breadcrumb": "Show Breadcrumb",
+        "register-to-nav": "Show in Navigation"
+      },
+      "tooltips": {
+        "link-name": "This text will be used in the navigation menu. Defaults to Page Title if empty.",
+        "url": "You can use path parameters like /blog/:slug",
+        "reset-layout": "If enabled, the page will be rendered without the theme's default layout (header, footer, sidebar)."
+      },
+      "save": "Save",
+      "back": "Pages"
+    }
+  },
+  "errors": {
+    "PAGE_URL_ALREADY_EXISTS": "A page with this URL already exists.",
+    "ERROR_UNKNOWN": "Unknown error",
+    "ERROR_GENERAL": "An unexpected error occurred. Please try again later."
+  },
+  "modals": {
+    "delete": {
+      "description": "Are you sure you want to delete page <b>{title}</b>? This action cannot be undone.",
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    }
+  },
+  "toasts": {
+    "page-added": "Page created successfully.",
+    "page-updated": "Page updated successfully.",
+    "page-deleted": "Page deleted successfully.",
+    "error-saving": "Error while saving page: {error}",
+    "error-deleting": "Error while deleting page: {error}"
+  }
 }

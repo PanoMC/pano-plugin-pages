@@ -1,30 +1,30 @@
 <article class="container vstack gap-3">
-  <div class="d-flex align-items-center mb-2">
-    <a
-      href="{base}/pages"
-      class="btn btn-link"
-      role="button">
-      <i class="fas fa-arrow-left"></i>
-      <span class="d-lg-inline d-none ms-2"> {$_('pages.editor.back')}</span>
-    </a>
+  <PageActions>
+    <div slot="left">
+      <a href="{base}/pages" class="btn btn-link" role="button">
+        <i class="fas fa-arrow-left"></i>
+        <span class="d-lg-inline d-none ms-2"> {$_('pages.editor.back')}</span>
+      </a>
+    </div>
 
-    <button
-      type="button"
-      class="btn btn-primary ms-auto px-4"
-      class:disabled={loading || !isFormValid || (mode === 'edit' && !isChanged)}
-      disabled={loading || !isFormValid || (mode === 'edit' && !isChanged)}
-      on:click={onSavePage}>
-      <i class="fas fa-save me-2"></i>
-      {$_('pages.editor.save')}
-    </button>
-  </div>
+    <div slot="right">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        class:disabled={loading || !isFormValid || (mode === 'edit' && !isChanged)}
+        disabled={loading || !isFormValid || (mode === 'edit' && !isChanged)}
+        on:click={onSavePage}>
+        {$_('pages.editor.save')}
+      </button>
+    </div>
+  </PageActions>
 
   <div class="card">
     <div class="card-body">
       <div class="row">
-        <div class="col-md-8 border-end">
+        <div class="col-md-6 border-end">
           <!-- Title -->
-          <div class="input-group mb-4">
+          <div class="input-group mb-3">
             {#if mode === 'edit'}
               <span class="input-group-text">#{pageData.id}</span>
             {/if}
@@ -39,9 +39,9 @@
               <label for="title">{$_('pages.editor.fields.title')}</label>
             </div>
           </div>
-          
+
           <!-- Link Name -->
-          <div class="input-group mb-4">
+          <div class="input-group mb-3">
             <div class="form-floating flex-grow-1">
               <input
                 type="text"
@@ -51,8 +51,9 @@
                 placeholder={$_('pages.editor.fields.link-name')} />
               <label for="linkName">{$_('pages.editor.fields.link-name')}</label>
             </div>
-            <span class="input-group-text bg-white text-muted">
-                <i class="fas fa-info-circle" use:tooltip={[$_('pages.editor.tooltips.link-name')]}></i>
+            <span class="input-group-text">
+              <i class="fas fa-info-circle" use:tooltip={[$_('pages.editor.tooltips.link-name')]}
+              ></i>
             </span>
           </div>
 
@@ -71,24 +72,22 @@
           </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-6">
           <!-- Status -->
-          <div class="form-check form-switch mb-4">
+          <div class="form-check form-switch">
             <input
               class="form-check-input"
               type="checkbox"
               id="pageActive"
               role="switch"
               bind:checked={pageData.active} />
-            <label class="form-check-label ms-2 fw-bold" for="pageActive">
-      {pageData.active
-        ? $_('pages.list.status.active')
-        : $_('pages.list.status.passive')}
+            <label class="form-check-label" for="pageActive">
+              {pageData.active ? $_('pages.list.status.active') : $_('pages.list.status.passive')}
             </label>
           </div>
 
           <!-- Configuration -->
-          <div class="vstack gap-3">
+          <div class="vstack gap-2">
             <div class="form-check form-switch">
               <input
                 class="form-check-input"
@@ -96,7 +95,7 @@
                 role="switch"
                 id="registerToNav"
                 bind:checked={pageData.registerToThemeNav} />
-              <label class="form-check-label ms-2" for="registerToNav">
+              <label class="form-check-label" for="registerToNav">
                 {$_('pages.editor.fields.register-to-nav')}
               </label>
             </div>
@@ -108,16 +107,13 @@
                 role="switch"
                 id="pageLoginRequired"
                 bind:checked={pageData.loginRequired} />
-              <label class="form-check-label ms-2" for="pageLoginRequired">
+              <label class="form-check-label" for="pageLoginRequired">
                 {$_('pages.editor.fields.login-required')}
               </label>
             </div>
 
             <div class="form-floating">
-              <select
-                class="form-select"
-                id="linkTarget"
-                bind:value={pageData.target}>
+              <select class="form-select" id="linkTarget" bind:value={pageData.target}>
                 <option value="_self">{$_('pages.editor.fields.target-options.normal')}</option>
                 <option value="_blank">{$_('pages.editor.fields.target-options.external')}</option>
               </select>
@@ -132,7 +128,7 @@
                 id="resetLayout"
                 bind:checked={pageData.resetLayout}
                 use:tooltip={[$_('pages.editor.tooltips.reset-layout')]} />
-              <label class="form-check-label ms-2" for="resetLayout">
+              <label class="form-check-label" for="resetLayout">
                 {$_('pages.editor.fields.reset-layout')}
                 <i class="fas fa-question-circle ms-1 opacity-50"></i>
               </label>
@@ -145,7 +141,7 @@
                 role="switch"
                 id="showBreadcrumb"
                 bind:checked={pageData.showBreadcrumb} />
-              <label class="form-check-label ms-2" for="showBreadcrumb">
+              <label class="form-check-label" for="showBreadcrumb">
                 {$_('pages.editor.fields.show-breadcrumb')}
               </label>
             </div>
@@ -166,23 +162,25 @@
   </div>
 
   <div class="card flex-grow-1">
-    <div class="card-body p-0 d-flex flex-column">
+    <div class="card-body d-flex flex-column">
+      <label for="editor" class="form-label">{$_('pages.editor.fields.html-content')}</label>
       <!-- Editor -->
-      <Editor
-        bind:content={pageData.htmlContent}
-        bind:isEmpty={isEditorEmpty}
-        showHtml={true}
-        showPreview={true}
-        contentStyles="min-height: 600px;" />
+      <div id="editor">
+        <Editor
+          bind:content={pageData.htmlContent}
+          bind:isEmpty={isEditorEmpty}
+          showHtml={true}
+          showPreview={true}
+          contentStyles="min-height: 400px;" />
+      </div>
     </div>
   </div>
-
 </article>
 
 <script context="module">
   import ApiUtil from '@panomc/sdk/utils/api';
 
-  import {pluginId} from '../main';
+  import { pluginId } from '../main';
 
   export async function load(event) {
     const { params, parent } = event;
@@ -198,9 +196,9 @@
       });
 
       if (body.error) {
-        return { data: {pageData: {}, mode: 'error', error: body.error} };
+        return { data: { pageData: {}, mode: 'error', error: body.error } };
       }
-      return { data: { pageData: body.page, mode: 'edit'} };
+      return { data: { pageData: body.page, mode: 'edit' } };
     } else {
       pageTitle.set(`plugins.${pluginId}.pages.editor.create-title`);
       return {
@@ -220,18 +218,18 @@
             registerToThemeNav: true,
           },
           mode: 'create',
-        }
-      }
+        },
+      };
     }
   }
 </script>
 
 <script>
-  import { Editor } from '@panomc/sdk/components';
+  import { Editor, PageActions } from '@panomc/sdk/components';
   import { showToast } from '@panomc/sdk/toasts';
   import { base, goto } from '@panomc/sdk/svelte';
   import { _ } from '../main';
-  import tooltip from "@panomc/sdk/utils/tooltip"
+  import tooltip from '@panomc/sdk/utils/tooltip';
 
   export let data;
 
@@ -240,16 +238,16 @@
   let pageData = data.pageData;
   let mode = data.mode;
   let urlError = false;
-  
+
   let initialPageData = JSON.parse(JSON.stringify(pageData));
 
   $: {
-      if (data.mode !== mode || (data.pageData && data.pageData.id !== pageData.id)) {
-          mode = data.mode;
-          pageData = data.pageData;
-          initialPageData = JSON.parse(JSON.stringify(pageData));
-          urlError = false;
-      }
+    if (data.mode !== mode || (data.pageData && data.pageData.id !== pageData.id)) {
+      mode = data.mode;
+      pageData = data.pageData;
+      initialPageData = JSON.parse(JSON.stringify(pageData));
+      urlError = false;
+    }
   }
 
   $: isFormValid = (() => {
@@ -259,8 +257,7 @@
     return true;
   })();
 
-  $: isChanged =
-    mode === 'create' || JSON.stringify(pageData) !== JSON.stringify(initialPageData);
+  $: isChanged = mode === 'create' || JSON.stringify(pageData) !== JSON.stringify(initialPageData);
 
   function goBack() {
     goto(`${base}/pages`);
@@ -269,9 +266,7 @@
   async function onSavePage() {
     urlError = false;
 
-    if (pageData.url &&
-            !pageData.url.startsWith('/') &&
-            !/^https?:\/\//.test(pageData.url)) {
+    if (pageData.url && !pageData.url.startsWith('/') && !/^https?:\/\//.test(pageData.url)) {
       pageData.url = '/' + pageData.url;
     }
 
@@ -287,16 +282,16 @@
 
       if (result.error) {
         if (result.error === 'PAGE_URL_ALREADY_EXISTS') {
-            urlError = true;
+          urlError = true;
         }
         showToast(`plugins.${pluginId}.toasts.error-saving`, {
-            error: $_("errors." + result.error)
+          error: $_('errors.' + result.error),
         });
       } else {
         showToast(
           mode === 'create'
             ? `plugins.${pluginId}.toasts.page-added`
-            : `plugins.${pluginId}.toasts.page-updated`
+            : `plugins.${pluginId}.toasts.page-updated`,
         );
         goBack();
       }

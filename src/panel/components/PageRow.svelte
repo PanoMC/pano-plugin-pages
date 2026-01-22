@@ -3,7 +3,7 @@
     <div class="dropdown position-static">
       <button
         type="button"
-        class="btn btn-sm btn-link"
+        class="btn btn-link"
         aria-expanded="false"
         aria-haspopup="true"
         data-bs-toggle="dropdown"
@@ -12,19 +12,13 @@
         <span class="fas fa-ellipsis-v"></span>
       </button>
       <div class="dropdown-menu dropdown-menu-start animate__animated animate__fadeIn">
-        <button
-          type="button"
-          class="dropdown-item"
-          on:click={() => onEditClick(page.id)}>
+        <button type="button" class="dropdown-item" on:click={() => onEditClick(page.id)}>
           <span>
             <i class="fas fa-edit me-2"></i>
             {$_('pages.list.table.actions-edit')}
           </span>
         </button>
-        <button
-          type="button"
-          class="dropdown-item text-danger"
-          on:click={() => onDeleteClick(page.id)}>
+        <button type="button" class="dropdown-item" on:click={() => onDeleteClick(page.id)}>
           <i class="fas fa-trash me-2"></i>
           <span> {$_('pages.list.table.actions-delete')} </span>
         </button>
@@ -38,7 +32,9 @@
     <button
       type="button"
       on:click={() => onEditClick(page.id)}
-      class="btn btn-link p-0 text-start text-decoration-none fw-bold">
+      title={page.title}
+      aria-label={page.title}
+      class="btn btn-link p-0 text-start text-decoration-none w-100 text-truncate focus-ring">
       {page.title}
     </button>
   </td>
@@ -46,11 +42,11 @@
   <td class="align-middle text-muted small">{page.url}</td>
   <td class="align-middle">
     {#if page.active}
-      <span class="badge bg-success-subtle text-success">
+      <span class="badge text-bg-success">
         {$_('pages.list.status.active')}
       </span>
     {:else}
-      <span class="badge bg-danger-subtle text-danger">
+      <span class="badge text-bg-danger">
         {$_('pages.list.status.passive')}
       </span>
     {/if}
@@ -58,7 +54,7 @@
 </tr>
 
 <script>
-  import {_} from '../../main';
+  import { _ } from '../../main';
 
   export let page;
   export let onEditClick;
