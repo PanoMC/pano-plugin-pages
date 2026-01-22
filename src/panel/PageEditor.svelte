@@ -293,7 +293,12 @@
             ? `plugins.${pluginId}.toasts.page-added`
             : `plugins.${pluginId}.toasts.page-updated`,
         );
-        goBack();
+
+        if (mode === 'create' && result.id) {
+          goto(`${base}/pages/edit/${result.id}`);
+        } else {
+          initialPageData = JSON.parse(JSON.stringify(pageData));
+        }
       }
     } catch (e) {
       console.error(e);

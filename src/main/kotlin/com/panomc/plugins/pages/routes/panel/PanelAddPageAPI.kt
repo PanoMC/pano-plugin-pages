@@ -87,7 +87,7 @@ class PanelAddPageAPI(
             registerToThemeNav = data.getBoolean("registerToThemeNav")
         )
 
-        pagesDao.add(page, sqlClient)
+        val id = pagesDao.add(page, sqlClient)
 
         val userId = authProvider.getUserIdFromRoutingContext(context)
         val username = databaseManager.userDao.getUsernameFromUserId(userId, sqlClient)!!
@@ -97,6 +97,6 @@ class PanelAddPageAPI(
             sqlClient
         )
 
-        return Successful()
+        return Successful(mapOf("id" to id))
     }
 }
