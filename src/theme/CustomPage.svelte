@@ -1,26 +1,25 @@
-
-
-<article class:container={!data.page.resetLayout} class:py-5={!data.page.resetLayout}>
+<article class:container={!data.page.resetLayout}>
   {#if !data.page.resetLayout && data.page.showBreadcrumb}
-    <nav aria-label="breadcrumb" class="mb-4">
+    <nav aria-label="breadcrumb" class="mb-3">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Home</a></li>
         <li class="breadcrumb-item active" aria-current="page">{data.page.title}</li>
       </ol>
     </nav>
-    <h1 class="mb-4">{data.page.title}</h1>
   {/if}
+
+  <svelte:component this={PageTitle} title={data.page.title} />
 
   {#if data.page.htmlContent}
     {@html data.page.htmlContent}
   {:else}
-    <div class="alert alert-info">No content available for this page.</div>
+    <NoContent />
   {/if}
 </article>
 
 <script context="module">
-  import ApiUtil, {buildQueryParams} from '@panomc/sdk/utils/api';
-  import {error, redirect} from '@panomc/sdk/svelte';
+  import ApiUtil, { buildQueryParams } from '@panomc/sdk/utils/api';
+  import { error, redirect } from '@panomc/sdk/svelte';
 
   export async function load(event) {
     const { params, parent } = event;
@@ -29,7 +28,7 @@
     const url = event.url.pathname;
 
     // First try a direct match with the more efficient API
-    const queryParams = buildQueryParams({url})
+    const queryParams = buildQueryParams({ url });
     const res = await ApiUtil.get({
       path: `/api/pages/url${queryParams}`,
       request: event,
@@ -41,7 +40,7 @@
       }
 
       pageTitle.set(res.page.title);
-      return { data: {page: res.page} };
+      return { data: { page: res.page } };
     }
 
     // Fallback: Fetch all active pages to check for dynamic parameter matches (:param)
@@ -79,5 +78,10 @@
 </script>
 
 <script>
+  import { NoContent } from '@panomc/sdk/components';
+  import { getPanoContext } from '@panomc/sdk/internal';
+
   export let data;
+
+  const { PageTitle } = getPanoContext().context.components;
 </script>
