@@ -1,6 +1,8 @@
 <article class:container={!data.page.resetLayout}>
+
+  <!-- Temporary disabled -->
   {#if !data.page.resetLayout && data.page.showBreadcrumb}
-    <nav aria-label="breadcrumb" class="mb-3">
+    <nav aria-label="breadcrumb" class="mb-3 d-none">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Home</a></li>
         <li class="breadcrumb-item active" aria-current="page">{data.page.title}</li>
