@@ -20,8 +20,8 @@
 </article>
 
 <script context="module">
-  import ApiUtil, { buildQueryParams } from '@panomc/sdk/utils/api';
-  import { error, redirect } from '@panomc/sdk/svelte';
+  import ApiUtil, {buildQueryParams} from '@panomc/sdk/utils/api';
+  import {error, redirect} from '@panomc/sdk/svelte';
 
   export async function load(event) {
     const { params, parent } = event;
@@ -80,10 +80,7 @@
 </script>
 
 <script>
-  import { NoContent } from '@panomc/sdk/components';
-  import { getPanoContext } from '@panomc/sdk/internal';
+  import { PageTitle, NoContent } from '@panomc/sdk/components/theme';
 
   export let data;
-
-  const { PageTitle } = getPanoContext().context.components;
 </script>

@@ -90,7 +90,7 @@
     CardHeader,
     NoContent,
     Pagination,
-  } from '@panomc/sdk/components';
+  } from '@panomc/sdk/components/panel';
 
   import { _ } from '../main';
   import PageRow from './components/PageRow.svelte';

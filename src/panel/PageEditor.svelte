@@ -180,7 +180,7 @@
 <script context="module">
   import ApiUtil from '@panomc/sdk/utils/api';
 
-  import { pluginId } from '../main';
+  import {pluginId} from '../main';
 
   export async function load(event) {
     const { params, parent } = event;
@@ -225,7 +225,7 @@
 </script>
 
 <script>
-  import { Editor, PageActions } from '@panomc/sdk/components';
+  import { Editor, PageActions } from '@panomc/sdk/components/panel';
   import { showToast } from '@panomc/sdk/toasts';
   import { base, goto } from '@panomc/sdk/svelte';
   import { _ } from '../main';
