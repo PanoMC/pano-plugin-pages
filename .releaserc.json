@@ -10,6 +10,15 @@
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     [
+      "@PanoMC/semantic-release-pano",
+      {
+        "resourceId": "pano-plugin-pages",
+        "file": "build/libs/pano-plugin-pages-${version}.jar",
+        "panoVersion": "1.0.0",
+        "panoUrl": "https://api-dev.panomc.com"
+      }
+    ],
+    [
       "@semantic-release/github",
       {
         "assets": [
