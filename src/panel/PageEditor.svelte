@@ -1,5 +1,5 @@
 <article class="container vstack gap-3">
-  <PageActions>
+  <PageActions middleClass="d-none d-lg-flex">
     <div slot="left">
       <a href="{base}/pages" class="btn btn-link" role="button">
         <i class="fas fa-arrow-left"></i>
