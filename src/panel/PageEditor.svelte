@@ -34,6 +34,7 @@
                 class="form-control form-control-lg"
                 id="title"
                 bind:value={pageData.title}
+                on:input={onTitleInput}
                 placeholder={$_('pages.editor.fields.title')}
                 required />
               <label for="title">{$_('pages.editor.fields.title')}</label>
@@ -48,6 +49,7 @@
                 class="form-control"
                 id="linkName"
                 bind:value={pageData.linkName}
+                on:input={() => (isLinkNameManuallyEdited = true)}
                 placeholder={$_('pages.editor.fields.link-name')} />
               <label for="linkName">{$_('pages.editor.fields.link-name')}</label>
             </div>
@@ -65,6 +67,7 @@
               class:is-invalid={urlError}
               id="url"
               bind:value={pageData.url}
+              on:input={() => (isUrlManuallyEdited = true)}
               placeholder={$_('pages.editor.fields.url')}
               required
               use:tooltip={[$_('pages.editor.tooltips.url')]} />
@@ -180,7 +183,7 @@
 <script context="module">
   import ApiUtil from '@panomc/sdk/utils/api';
 
-  import {pluginId} from '../main';
+  import { pluginId } from '../main';
 
   export async function load(event) {
     const { params, parent } = event;
@@ -247,7 +250,51 @@
       pageData = data.pageData;
       initialPageData = JSON.parse(JSON.stringify(pageData));
       urlError = false;
+      isLinkNameManuallyEdited = false;
+      isUrlManuallyEdited = false;
     }
+  }
+
+  let isLinkNameManuallyEdited = false;
+  let isUrlManuallyEdited = false;
+
+  function onTitleInput() {
+    if (mode === 'create') {
+      if (!isLinkNameManuallyEdited) {
+        pageData.linkName = pageData.title;
+      }
+
+      if (!isUrlManuallyEdited) {
+        pageData.url = '/' + slugify(pageData.title);
+      }
+    }
+  }
+
+  function slugify(text) {
+    if (!text) return '';
+    const charMap = {
+      ğ: 'g',
+      Ğ: 'g',
+      ş: 's',
+      Ş: 's',
+      ı: 'i',
+      İ: 'i',
+      ö: 'o',
+      Ö: 'o',
+      ç: 'c',
+      Ç: 'c',
+      ü: 'u',
+      Ü: 'u',
+    };
+    let str = text.toLowerCase();
+    for (const key in charMap) {
+      str = str.replace(new RegExp(key, 'g'), charMap[key]);
+    }
+    return str
+      .replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+      .replace(/\s+/g, '-') // collapse whitespace and replace by -
+      .replace(/-+/g, '-') // collapse dashes
+      .replace(/^-+|-+$/g, ''); // trim dashes
   }
 
   $: isFormValid = (() => {
