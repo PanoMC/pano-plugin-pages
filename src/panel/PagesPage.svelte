@@ -1,6 +1,6 @@
 <article class="container vstack gap-3">
   <!-- Action Menu -->
-  <PageActions>
+  <PageActions leftClasses="d-lg-flex d-none" middleClasses="d-lg-flex d-none">
     <div slot="right">
       <button type="button" class="btn btn-secondary" on:click={onCreateClick}>
         <i class="fas fa-plus"></i>
