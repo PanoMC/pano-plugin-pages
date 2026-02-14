@@ -12,10 +12,20 @@
     [
       "@PanoMC/semantic-release-pano",
       {
-        "resourceId": "pano-plugin-pages",
         "file": "build/libs/pano-plugin-pages-${version}.jar",
         "panoVersion": "1.0.0",
-        "panoUrl": "https://api-dev.panomc.com"
+        "configs": [
+          {
+            "resourceId": "pano-plugin-pages",
+            "panoUrl": "https://api-dev.panomc.com",
+            "tokenVar": "PANO_TOKEN"
+          },
+          {
+            "resourceId": "pano-plugin-pages",
+            "panoUrl": "https://api.panomc.com",
+            "tokenVar": "PANO_PROD_TOKEN"
+          }
+        ]
       }
     ],
     [
