@@ -40,6 +40,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
           PANO_TOKEN: ${{ secrets.PANO_TOKEN }}
+          PANO_PROD_TOKEN: ${{ secrets.PANO_PROD_TOKEN }}
 
       - name: Echo new_tag_version
         run: |
@@ -89,6 +90,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
           PANO_TOKEN: ${{ secrets.PANO_TOKEN }}
+          PANO_PROD_TOKEN: ${{ secrets.PANO_PROD_TOKEN }}
         run: |
           npm install -D git+https://github.com/PanoMC/semantic-release-pano.git
           npx semantic-release
