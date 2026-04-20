@@ -10,8 +10,6 @@
     </nav>
   {/if}
 
-  <svelte:component this={PageTitle} title={data.page.title} />
-
   {#if data.page.htmlContent}
     {@html data.page.htmlContent}
   {:else}
@@ -20,12 +18,12 @@
 </article>
 
 <script context="module">
-  import ApiUtil, {buildQueryParams} from '@panomc/sdk/utils/api';
-  import {error, redirect} from '@panomc/sdk/svelte';
+    import ApiUtil, {buildQueryParams} from '@panomc/sdk/utils/api';
+    import {error, redirect} from '@panomc/sdk/svelte';
 
-  export async function load(event) {
+    export async function load(event) {
     const { params, parent } = event;
-    const { pageTitle, session } = await parent();
+    const { session } = await parent();
 
     const url = event.url.pathname;
 
@@ -41,8 +39,7 @@
         throw redirect(302, '/');
       }
 
-      pageTitle.set(res.page.title);
-      return { data: { page: res.page } };
+      return { data: { page: res.page }, pageTitle: res.page.title };
     }
 
     // Fallback: Fetch all active pages to check for dynamic parameter matches (:param)
@@ -70,8 +67,7 @@
           throw redirect(302, '/');
         }
 
-        pageTitle.set(page.title);
-        return { data: { page } };
+        return { data: { page }, pageTitle: page.title };
       }
     }
 
@@ -80,7 +76,7 @@
 </script>
 
 <script>
-  import { PageTitle, NoContent } from '@panomc/sdk/components/theme';
+  import { NoContent } from '@panomc/sdk/components/theme';
 
   export let data;
 </script>
