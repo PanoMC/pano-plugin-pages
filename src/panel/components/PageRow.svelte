@@ -58,6 +58,7 @@
 
 <script>
   import {_} from '../../main';
+  import tooltip from '@panomc/sdk/utils/tooltip';
 
   export let page;
   export let onEditClick;
