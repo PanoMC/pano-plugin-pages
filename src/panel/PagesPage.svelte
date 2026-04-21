@@ -1,4 +1,4 @@
-<article class="container vstack gap-3">
+<article class="container vstack gap-3 min-w-0">
   <!-- Action Menu -->
   <PageActions leftClasses="d-lg-flex d-none" middleClasses="d-lg-flex d-none">
     <div slot="right">
@@ -9,7 +9,7 @@
     </div>
   </PageActions>
 
-  <div class="card">
+  <div class="card min-w-0">
     <CardHeader>
       <div slot="left">
         {$_('pages.list.total-count', { values: { count: data.pageCount || 0 } })}
@@ -20,15 +20,17 @@
       <NoContent />
     {:else}
       <div class="table-responsive">
-        <table class="table table-hover">
+        <table class="table table-hover align-middle">
           <thead>
             <tr>
-              <th scope="col" style="width: 60px;"></th>
-              <th scope="col" style="width: 80px;">{$_('pages.list.table.id')}</th>
-              <th scope="col">{$_('pages.list.table.title')}</th>
-              <th scope="col">{$_('pages.list.table.link-name')}</th>
-              <th scope="col">{$_('pages.list.table.url')}</th>
-              <th scope="col">{$_('pages.list.table.status')}</th>
+              <th scope="col" class="align-middle text-nowrap" style="width: 60px;"></th>
+              <th scope="col" class="align-middle text-nowrap" style="width: 80px;"
+                >{$_('pages.list.table.id')}</th>
+              <th scope="col" class="align-middle text-nowrap">{$_('pages.list.table.title')}</th>
+              <th scope="col" class="align-middle text-nowrap">{$_('pages.list.table.link-name')}</th>
+              <th scope="col" class="align-middle text-nowrap">{$_('pages.list.table.url')}</th>
+              <th scope="col" class="align-middle text-nowrap" style="width: 110px;"
+                >{$_('pages.list.table.status')}</th>
             </tr>
           </thead>
           <tbody>
@@ -53,10 +55,10 @@
 </article>
 
 <script context="module">
-  import ApiUtil from '@panomc/sdk/utils/api';
-  import {pluginId} from '../main';
+    import ApiUtil from '@panomc/sdk/utils/api';
+    import {pluginId} from '../main';
 
-  export async function load(event) {
+    export async function load(event) {
     const {
       parent,
       url: { searchParams },

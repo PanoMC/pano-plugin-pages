@@ -25,23 +25,25 @@
       </div>
     </div>
   </th>
-  <td class="align-middle" style="width: 80px;">
+  <td class="align-middle text-nowrap" style="width: 80px;">
     <code>#{page.id}</code>
   </td>
-  <td class="align-middle">
-    <button
-      type="button"
-      on:click={() => onEditClick(page.id)}
-      use:tooltip={[$_('pages.list.table.actions-edit')]}
-      title={page.title}
-      aria-label={page.title}
-      class="btn btn-link p-0 text-start text-decoration-none w-100 text-truncate focus-ring">
-      {page.title}
-    </button>
+  <td class="align-middle" style="max-width: 260px;">
+    <div class="text-truncate">
+      <button
+        type="button"
+        on:click={() => onEditClick(page.id)}
+        use:tooltip={[$_('pages.list.table.actions-edit')]}
+        title={page.title}
+        aria-label={page.title}
+        class="btn btn-link p-0 text-start text-decoration-none w-100 text-truncate focus-ring">
+        {page.title}
+      </button>
+    </div>
   </td>
-  <td class="align-middle">{page.linkName || '-'}</td>
-  <td class="align-middle text-muted small">{page.url}</td>
-  <td class="align-middle">
+  <td class="align-middle text-nowrap">{page.linkName || '-'}</td>
+  <td class="align-middle text-muted small text-nowrap">{page.url}</td>
+  <td class="align-middle text-nowrap">
     {#if page.active}
       <span class="badge text-bg-success">
         {$_('pages.list.status.active')}
@@ -55,8 +57,7 @@
 </tr>
 
 <script>
-  import { _ } from '../../main';
-  import tooltip from '@panomc/sdk/utils/tooltip';
+  import {_} from '../../main';
 
   export let page;
   export let onEditClick;
