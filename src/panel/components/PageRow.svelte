@@ -34,7 +34,6 @@
         type="button"
         on:click={() => onEditClick(page.id)}
         use:tooltip={[$_('pages.list.table.actions-edit')]}
-        title={page.title}
         aria-label={page.title}
         class="btn btn-link p-0 text-start text-decoration-none w-100 text-truncate focus-ring">
         {page.title}
