@@ -70,7 +70,7 @@
               on:input={() => (isUrlManuallyEdited = true)}
               placeholder={$_('pages.editor.fields.url')}
               required
-              use:tooltip={[$_('pages.editor.tooltips.url')]} />
+              title={$_('pages.editor.tooltips.url')} />
             <label for="url">{$_('pages.editor.fields.url')}</label>
           </div>
         </div>
@@ -130,7 +130,7 @@
                 role="switch"
                 id="resetLayout"
                 bind:checked={pageData.resetLayout}
-                use:tooltip={[$_('pages.editor.tooltips.reset-layout')]} />
+                title={$_('pages.editor.tooltips.reset-layout')} />
               <label class="form-check-label" for="resetLayout">
                 {$_('pages.editor.fields.reset-layout')}
                 <i class="fas fa-question-circle ms-1 opacity-50"></i>
