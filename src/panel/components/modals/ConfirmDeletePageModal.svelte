@@ -64,8 +64,7 @@
 </script>
 
 <script>
-  import { showToast } from '@panomc/sdk/toasts';
-  import { _, pluginId } from '../../../main';
+  import { _, pluginId, showErrorToast, showSuccessToast } from '../../../main';
   let loading = false;
 
   async function onYesClick() {
@@ -83,17 +82,17 @@
           ? $_(errorKey) 
           : (result.error || $_(`plugins.${pluginId}.errors.ERROR_UNKNOWN`));
           
-        showToast(`plugins.${pluginId}.toasts.error-deleting`, {
+        showErrorToast(`plugins.${pluginId}.toasts.error-deleting`, {
           error: translatedError
         });
       } else {
-        showToast(`plugins.${pluginId}.toasts.page-deleted`);
+        showSuccessToast(`plugins.${pluginId}.toasts.page-deleted`);
         callback(get(page));
         hide();
       }
     } catch (e) {
       console.error(e);
-      showToast(`plugins.${pluginId}.toasts.error-deleting`, {
+      showErrorToast(`plugins.${pluginId}.toasts.error-deleting`, {
         error: $_(`plugins.${pluginId}.errors.ERROR_GENERAL`),
       });
     } finally {

@@ -229,9 +229,8 @@
 
 <script>
   import { Editor, PageActions } from '@panomc/sdk/components/panel';
-  import { showToast } from '@panomc/sdk/toasts';
   import { base, goto } from '@panomc/sdk/svelte';
-  import { _ } from '../main';
+  import { _, showErrorToast, showSuccessToast } from '../main';
   import tooltip from '@panomc/sdk/utils/tooltip';
 
   export let data;
@@ -331,11 +330,11 @@
         if (result.error === 'PAGE_URL_ALREADY_EXISTS') {
           urlError = true;
         }
-        showToast(`plugins.${pluginId}.toasts.error-saving`, {
+        showErrorToast(`plugins.${pluginId}.toasts.error-saving`, {
           error: $_('errors.' + result.error),
         });
       } else {
-        showToast(
+        showSuccessToast(
           mode === 'create'
             ? `plugins.${pluginId}.toasts.page-added`
             : `plugins.${pluginId}.toasts.page-updated`,
@@ -349,7 +348,7 @@
       }
     } catch (e) {
       console.error(e);
-      showToast(`plugins.${pluginId}.toasts.error-saving`, {
+      showErrorToast(`plugins.${pluginId}.toasts.error-saving`, {
         error: $_(`errors.ERROR_GENERAL`),
       });
     } finally {
