@@ -181,7 +181,7 @@
 </article>
 
 <script context="module">
-  import ApiUtil from '@panomc/sdk/utils/api';
+  import { api } from '@panomc/sdk/plugin-api';
 
   import { pluginId } from '../main';
 
@@ -193,8 +193,8 @@
       const id = params.id;
       pageTitle.set(`plugins.${pluginId}.pages.editor.edit-title`);
 
-      const body = await ApiUtil.get({
-        path: `/api/panel/pages/${id}`,
+      const body = await api.panel.get({
+        path: `/pages/${id}`,
         request: event,
       });
 
@@ -321,17 +321,17 @@
     loading = true;
 
     try {
-      const result = await ApiUtil[mode === 'create' ? 'post' : 'put']({
-        path: mode === 'create' ? '/api/panel/pages' : `/api/panel/pages/${pageData.id}`,
+      const result = await api.panel[mode === 'create' ? 'post' : 'put']({
+        path: mode === 'create' ? '/pages' : `/pages/${pageData.id}`,
         body: pageData,
       });
 
       if (result.error) {
-        if (result.error === 'PAGE_URL_ALREADY_EXISTS') {
+        if (result.error.code === 'PAGE_URL_ALREADY_EXISTS') {
           urlError = true;
         }
         showErrorToast(`plugins.${pluginId}.toasts.error-saving`, {
-          error: $_('errors.' + result.error),
+          error: $_('errors.' + result.error.code),
         });
       } else {
         showSuccessToast(

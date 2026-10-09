@@ -1,7 +1,7 @@
 import {PanoPlugin, viewComponent} from '@panomc/sdk';
 import {derived} from 'svelte/store';
 import {_ as i18n} from '@panomc/sdk/utils/language';
-import ApiUtil from '@panomc/sdk/utils/api';
+import { api } from '@panomc/sdk/plugin-api';
 import { showToast } from '@panomc/sdk/toasts';
 
 export const pluginId = 'pano-plugin-pages';
@@ -81,20 +81,18 @@ export default class PagesPlugin extends PanoPlugin {
       });
     } else {
       // Theme Side
-      const customPageComponent = viewComponent(() => import('./theme/CustomPage.svelte'));
-
       pano.ui.app.onLoad(async (data, event) => {
         // Fetch active pages to register their routes
         try {
-          const res = await ApiUtil.get({ path: '/api/pages', request: event });
-          if (res) {
-            const pages = res.pages;
+          const res = await api.get({ path: '/pages', request: event });
+          if (res && Array.isArray(res.items)) {
+            const pages = res.items;
 
             pages.forEach((page) => {
               // Register dynamic route
               pano.ui.page.register({
                 path: page.url,
-                component: customPageComponent,
+                view: 'pages:CustomPage',
                 loginRequired: page.loginRequired,
                 permission: page.permissionNode,
                 resetLayout: page.resetLayout,

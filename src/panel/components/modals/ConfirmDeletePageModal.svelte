@@ -30,7 +30,7 @@
 
 <script context="module">
   import {get, writable} from 'svelte/store';
-  import ApiUtil from '@panomc/sdk/utils/api';
+  import { api } from '@panomc/sdk/plugin-api';
 
   const modalElement = writable();
   const page = writable({});
@@ -71,16 +71,16 @@
     loading = true;
 
     try {
-      const result = await ApiUtil.delete({
-        path: `/api/panel/pages/${get(page).id}`,
+      const result = await api.panel.delete({
+        path: `/pages/${get(page).id}`,
       });
 
       if (result.error) {
         console.error('Delete failed:', result.error);
-        const errorKey = `plugins.${pluginId}.errors.${result.error}`;
+        const errorKey = `plugins.${pluginId}.errors.${result.error.code}`;
         const translatedError = $_(errorKey) !== errorKey 
           ? $_(errorKey) 
-          : (result.error || $_(`plugins.${pluginId}.errors.ERROR_UNKNOWN`));
+          : (result.error.message || result.error.code || $_(`plugins.${pluginId}.errors.ERROR_UNKNOWN`));
           
         showErrorToast(`plugins.${pluginId}.toasts.error-deleting`, {
           error: translatedError

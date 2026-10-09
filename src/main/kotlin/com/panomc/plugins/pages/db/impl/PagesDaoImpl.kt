@@ -1,6 +1,7 @@
 package com.panomc.plugins.pages.db.impl
 
 import com.panomc.platform.annotation.Dao
+import com.panomc.platform.model.PageRequest
 import com.panomc.plugins.pages.db.dao.PagesDao
 import com.panomc.plugins.pages.db.model.Page
 import io.vertx.kotlin.coroutines.coAwait
@@ -100,8 +101,7 @@ class PagesDaoImpl : PagesDao() {
             .coAwait()
     }
 
-    override suspend fun getAllByStatus(page: Long, active: Boolean?, sqlClient: SqlClient): List<Page> {
-        val offset = (page - 1) * 10
+    override suspend fun getAllByStatus(page: PageRequest, active: Boolean?, sqlClient: SqlClient): List<Page> {
         val query = StringBuilder("SELECT ${fields.toTableQuery()} FROM `${getTablePrefix() + tableName}` WHERE 1=1")
         val params = Tuple.tuple()
 
@@ -110,8 +110,9 @@ class PagesDaoImpl : PagesDao() {
             params.addBoolean(active)
         }
 
-        query.append(" ORDER BY `id` DESC LIMIT 10 OFFSET ?")
-        params.addLong(offset)
+        query.append(" ORDER BY `id` DESC LIMIT ? OFFSET ?")
+        params.addInteger(page.limit)
+        params.addLong(page.offset)
 
         val rows: RowSet<Row> = sqlClient
             .preparedQuery(query.toString())

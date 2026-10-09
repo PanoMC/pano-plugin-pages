@@ -1,4 +1,4 @@
-<article class:container={!data.page.resetLayout}>
+<article class="pages-custom-page" class:container={!data.page.resetLayout}>
 
   <!-- Temporary disabled -->
   {#if !data.page.resetLayout && data.page.showBreadcrumb}
@@ -18,7 +18,8 @@
 </article>
 
 <script context="module">
-    import ApiUtil, {buildQueryParams} from '@panomc/sdk/utils/api';
+    import { buildQueryParams } from '@panomc/sdk/utils/api';
+    import { api } from '@panomc/sdk/plugin-api';
     import {error, redirect} from '@panomc/sdk/svelte';
 
     export async function load(event) {
@@ -29,8 +30,8 @@
 
     // First try a direct match with the more efficient API
     const queryParams = buildQueryParams({ url });
-    const res = await ApiUtil.get({
-      path: `/api/pages/url${queryParams}`,
+    const res = await api.get({
+      path: `/pages/url${queryParams}`,
       request: event,
     });
 
@@ -43,13 +44,13 @@
     }
 
     // Fallback: Fetch all active pages to check for dynamic parameter matches (:param)
-    const allRes = await ApiUtil.get({
-      path: '/api/pages',
+    const allRes = await api.get({
+      path: '/pages',
       request: event,
     });
 
-    if (allRes.status === 'SUCCESS' && allRes && allRes.pages) {
-      const page = allRes.pages.find((p) => {
+    if (allRes.status === 'SUCCESS' && allRes && allRes.items) {
+      const page = allRes.items.find((p) => {
         const cleanUrl = url.replace(/\/$/, '') || '/';
         const cleanPUrl = p.url.replace(/\/$/, '') || '/';
 

@@ -11,8 +11,8 @@ import com.panomc.plugins.pages.log.DeletedPageLog
 import com.panomc.plugins.pages.permission.ManagePagesPermission
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.validation.ValidationHandler
-import io.vertx.ext.web.validation.builder.Parameters.param
-import io.vertx.ext.web.validation.builder.ValidationHandlerBuilder
+import com.panomc.platform.schema.dsl.Parameters.param
+import com.panomc.platform.schema.dsl.ValidationHandlerBuilder
 import io.vertx.json.schema.SchemaRepository
 import io.vertx.json.schema.common.dsl.Schemas.numberSchema
 
@@ -21,7 +21,7 @@ class PanelDeletePageAPI(
     private val plugin: PagesPlugin,
     private val pagesDao: PagesDao
 ) : PanelApi() {
-    override val paths = listOf(Path("/api/panel/pages/:id", RouteType.DELETE))
+    override val paths = listOf(Path("/pages/:id", RouteType.DELETE))
 
     private val authProvider: AuthProvider by lazy {
         plugin.applicationContext.getBean(AuthProvider::class.java)

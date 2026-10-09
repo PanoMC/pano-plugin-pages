@@ -1,6 +1,7 @@
 package com.panomc.plugins.pages.db.dao
 
 import com.panomc.platform.db.Dao
+import com.panomc.platform.model.PageRequest
 import com.panomc.plugins.pages.db.model.Page
 import io.vertx.sqlclient.SqlClient
 
@@ -9,7 +10,7 @@ abstract class PagesDao : Dao<Page>(Page::class.java) {
 
     abstract suspend fun update(page: Page, sqlClient: SqlClient)
 
-    abstract suspend fun getAllByStatus(page: Long, active: Boolean?, sqlClient: SqlClient): List<Page>
+    abstract suspend fun getAllByStatus(page: PageRequest, active: Boolean?, sqlClient: SqlClient): List<Page>
 
     abstract suspend fun count(active: Boolean?, sqlClient: SqlClient): Long
 

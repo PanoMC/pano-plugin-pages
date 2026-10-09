@@ -1,0 +1,19 @@
+{
+  "controllers": {},
+  "format": 1,
+  "views": {
+    "pages:CustomPage": {
+      "classes": [
+        "pages-custom-page"
+      ],
+      "contract": 1,
+      "hooks": [],
+      "props": {
+        "data": {
+          "required": true
+        }
+      },
+      "slots": []
+    }
+  }
+}

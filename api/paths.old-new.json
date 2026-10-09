@@ -1,0 +1,58 @@
+[
+  {
+    "method": "GET",
+    "old": "/api/pages",
+    "new": "/api/plugins/pano-plugin-pages/pages",
+    "relative": "/plugins/pano-plugin-pages/pages",
+    "class": "GetPagesAPI",
+    "file": "src/main/kotlin/com/panomc/plugins/pages/routes/api/GetPagesAPI.kt"
+  },
+  {
+    "method": "GET",
+    "old": "/api/pages/url",
+    "new": "/api/plugins/pano-plugin-pages/pages/url",
+    "relative": "/plugins/pano-plugin-pages/pages/url",
+    "class": "GetPageByUrlAPI",
+    "file": "src/main/kotlin/com/panomc/plugins/pages/routes/api/GetPageByUrlAPI.kt"
+  },
+  {
+    "method": "GET",
+    "old": "/api/panel/pages",
+    "new": "/api/plugins/pano-plugin-pages/panel/pages",
+    "relative": "/plugins/pano-plugin-pages/panel/pages",
+    "class": "PanelGetPagesAPI",
+    "file": "src/main/kotlin/com/panomc/plugins/pages/routes/panel/PanelGetPagesAPI.kt"
+  },
+  {
+    "method": "POST",
+    "old": "/api/panel/pages",
+    "new": "/api/plugins/pano-plugin-pages/panel/pages",
+    "relative": "/plugins/pano-plugin-pages/panel/pages",
+    "class": "PanelAddPageAPI",
+    "file": "src/main/kotlin/com/panomc/plugins/pages/routes/panel/PanelAddPageAPI.kt"
+  },
+  {
+    "method": "DELETE",
+    "old": "/api/panel/pages/:id",
+    "new": "/api/plugins/pano-plugin-pages/panel/pages/:id",
+    "relative": "/plugins/pano-plugin-pages/panel/pages/:id",
+    "class": "PanelDeletePageAPI",
+    "file": "src/main/kotlin/com/panomc/plugins/pages/routes/panel/PanelDeletePageAPI.kt"
+  },
+  {
+    "method": "GET",
+    "old": "/api/panel/pages/:id",
+    "new": "/api/plugins/pano-plugin-pages/panel/pages/:id",
+    "relative": "/plugins/pano-plugin-pages/panel/pages/:id",
+    "class": "PanelGetPageAPI",
+    "file": "src/main/kotlin/com/panomc/plugins/pages/routes/panel/PanelGetPageAPI.kt"
+  },
+  {
+    "method": "PUT",
+    "old": "/api/panel/pages/:id",
+    "new": "/api/plugins/pano-plugin-pages/panel/pages/:id",
+    "relative": "/plugins/pano-plugin-pages/panel/pages/:id",
+    "class": "PanelUpdatePageAPI",
+    "file": "src/main/kotlin/com/panomc/plugins/pages/routes/panel/PanelUpdatePageAPI.kt"
+  }
+]
