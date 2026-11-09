@@ -6,7 +6,7 @@
         <div class="pb-3">
           <i class="fas fa-question-circle fa-3x d-block m-auto text-gray"></i>
         </div>
-        {@html $_('modals.delete.description', { values: { title: $page.title } })}
+        {@html $_('modals.delete.description', { values: { title: escapeHtml($page.title) } })}
       </div>
       <div class="modal-footer flex-nowrap">
         <button
@@ -34,6 +34,19 @@
 
   const modalElement = writable();
   const page = writable({});
+
+  /**
+   * The page title goes into translated HTML: escape it so a title cannot add markup.
+   * @param {unknown} value
+   */
+  function escapeHtml(value) {
+    return String(value ?? '')
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#39;');
+  }
 
   let callback = (page) => {};
   let hideCallback = (page) => {};
