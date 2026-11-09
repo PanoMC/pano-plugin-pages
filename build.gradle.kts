@@ -94,6 +94,9 @@ dependencies {
     compileOnly("org.pf4j:pf4j:${pf4jVersion}")
     // Vert.x types carry io.vertx.codegen.annotations.Nullable; Kotlin 2.4 needs the annotation on the compile classpath
     compileOnly("io.vertx:vertx-codegen-api:${vertxVersion}")
+
+    // HTML cleaning of content saved by non-admin panel users (shaded into the plugin jar)
+    implementation("org.jsoup:jsoup:1.21.1")
     kapt("org.pf4j:pf4j:${pf4jVersion}")
 }
 

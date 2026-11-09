@@ -10,6 +10,7 @@ import com.panomc.plugins.pages.db.model.Page
 import com.panomc.plugins.pages.error.PageUrlAlreadyExists
 import com.panomc.plugins.pages.log.CreatedPageLog
 import com.panomc.plugins.pages.permission.ManagePagesPermission
+import com.panomc.plugins.pages.util.SafeHtml
 import io.vertx.core.Handler
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.handler.BodyHandler
@@ -61,6 +62,9 @@ class PanelAddPageAPI(
     override suspend fun handle(context: RoutingContext): Result {
         authProvider.requirePermission(ManagePagesPermission(), context)
 
+        // Admins may save any HTML; other page editors get it cleaned of scripts
+        val htmlContent = SafeHtml.forCaller(getParameters(context).body().jsonObject.getString("htmlContent"), authProvider, context) ?: ""
+
         val parameters = getParameters(context)
         val data = parameters.body().jsonObject
         val sqlClient = databaseManager.getSqlClient()
@@ -77,7 +81,7 @@ class PanelAddPageAPI(
             title = title,
             linkName = linkName,
             url = url,
-            htmlContent = data.getString("htmlContent"),
+            htmlContent = htmlContent,
             active = data.getBoolean("active"),
             loginRequired = data.getBoolean("loginRequired"),
             permissionNode = data.getString("permissionNode"),
