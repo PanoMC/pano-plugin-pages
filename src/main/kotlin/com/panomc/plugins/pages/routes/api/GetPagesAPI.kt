@@ -1,10 +1,13 @@
 package com.panomc.plugins.pages.routes.api
 
 import com.panomc.platform.annotation.Endpoint
+import com.panomc.platform.auth.AuthProvider
+import com.panomc.platform.auth.PermissionManager
 import com.panomc.platform.db.DatabaseManager
 import com.panomc.platform.model.*
 import com.panomc.plugins.pages.PagesPlugin
 import com.panomc.plugins.pages.db.dao.PagesDao
+import com.panomc.plugins.pages.util.PageAccess
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.validation.ValidationHandler
 import com.panomc.platform.schema.dsl.ValidationHandlerBuilder
@@ -49,6 +52,12 @@ class GetPagesAPI(
         plugin.applicationContext.getBean(DatabaseManager::class.java)
     }
 
+    private fun pageAccess(context: RoutingContext) = PageAccess(
+        plugin.applicationContext.getBean(AuthProvider::class.java),
+        plugin.applicationContext.getBean(PermissionManager::class.java),
+        context
+    )
+
     override fun getValidationHandler(schemaRepository: SchemaRepository): ValidationHandler =
         ValidationHandlerBuilder.create(schemaRepository).build()
 
@@ -56,6 +65,8 @@ class GetPagesAPI(
         val sqlClient = databaseManager.getSqlClient()
         val pages = pagesDao.getAllActive(sqlClient)
 
-        return Successful(mapOf("items" to pages))
+        val access = pageAccess(context)
+
+        return Successful(mapOf("items" to pages.map { access.visible(it) }))
     }
 }

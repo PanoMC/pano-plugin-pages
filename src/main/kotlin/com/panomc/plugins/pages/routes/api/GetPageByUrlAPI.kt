@@ -1,12 +1,15 @@
 package com.panomc.plugins.pages.routes.api
 
 import com.panomc.platform.annotation.Endpoint
+import com.panomc.platform.auth.AuthProvider
+import com.panomc.platform.auth.PermissionManager
 import com.panomc.platform.db.DatabaseManager
 import com.panomc.platform.error.BadRequest
 import com.panomc.platform.error.NotFound
 import com.panomc.platform.model.*
 import com.panomc.plugins.pages.PagesPlugin
 import com.panomc.plugins.pages.db.dao.PagesDao
+import com.panomc.plugins.pages.util.PageAccess
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.validation.ValidationHandler
 import com.panomc.platform.schema.dsl.Parameters.param
@@ -52,6 +55,12 @@ class GetPageByUrlAPI(
         plugin.applicationContext.getBean(DatabaseManager::class.java)
     }
 
+    private fun pageAccess(context: RoutingContext) = PageAccess(
+        plugin.applicationContext.getBean(AuthProvider::class.java),
+        plugin.applicationContext.getBean(PermissionManager::class.java),
+        context
+    )
+
     override fun getValidationHandler(schemaRepository: SchemaRepository): ValidationHandler {
         return ValidationHandlerBuilder.create(schemaRepository)
             .queryParameter(param("url", stringSchema()))
@@ -67,6 +76,6 @@ class GetPageByUrlAPI(
             throw NotFound()
         }
 
-        return Successful(mapOf("page" to page))
+        return Successful(mapOf("page" to pageAccess(context).visible(page)))
     }
 }
