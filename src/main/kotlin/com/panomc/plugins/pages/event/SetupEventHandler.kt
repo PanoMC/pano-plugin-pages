@@ -1,16 +1,20 @@
 package com.panomc.plugins.pages.event
 
+import com.panomc.platform.api.annotation.EventListener
 import com.panomc.platform.api.event.SetupEventListener
 import com.panomc.plugins.pages.PagesPlugin
-import org.pf4j.PluginState
-import org.springframework.context.event.EventListener
-import org.springframework.stereotype.Component
 
-@Component
+@EventListener
 class SetupEventHandler(private val plugin: PagesPlugin) : SetupEventListener {
-    @EventListener
+    private val logger by lazy {
+        plugin.logger
+    }
+
     override suspend fun onSetupFinished() {
-        if (plugin.pluginState == PluginState.STARTED) {
+        // isRunning, not plugin.pluginState: older Pano versions keep pluginState at its creation value.
+        if (plugin.isRunning) {
+            logger.info("Setup finished! Initializing plugin...")
+
             plugin.startPlugin()
         }
     }

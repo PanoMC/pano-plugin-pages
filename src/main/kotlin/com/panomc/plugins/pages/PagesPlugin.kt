@@ -15,8 +15,13 @@ class PagesPlugin : PanoPlugin() {
 
     private var isInitialized = false
 
+    /** True between onStart and onStop/onDisable; the setup listener starts the plugin only then. */
+    var isRunning = false
+        private set
+
     override suspend fun onStart() {
         logger.info("Starting...")
+        isRunning = true
 
         startPlugin()
     }
@@ -38,7 +43,12 @@ class PagesPlugin : PanoPlugin() {
         logger.info("Enabled!")
     }
 
+    override suspend fun onStop() {
+        isRunning = false
+    }
+
     override suspend fun onDisable() {
+        isRunning = false
         isInitialized = false
     }
 
