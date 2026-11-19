@@ -38,4 +38,4 @@ Pages lets you add your own pages to your Pano website, like a vote page, a join
 Questions or ideas? Join our [Discord](https://panomc.com/discord) or visit [panomc.com](https://panomc.com).
 
 ## 📄 License
-Released under the GPL-3.0 License.
+Released under the MIT License.
