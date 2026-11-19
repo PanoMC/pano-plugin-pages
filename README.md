@@ -13,7 +13,8 @@
 
 Pages lets you add your own pages to your Pano website, like a vote page, a joining guide or staff applications. Write the content in the built-in editor, pick a link, and the page shows up in your site menu right away.
 
-## ✨ Features
+<h3 align="center">Features</h3>
+
 - 📝 **Built-in editor**: Write with headings, lists, links and images, or switch to HTML.
 - 👀 **Preview**: See how the page looks before you save it.
 - 🔗 **Your own link**: Choose the page address, like /vote or /join.
@@ -22,20 +23,24 @@ Pages lets you add your own pages to your Pano website, like a vote page, a join
 - 🖥️ **Full screen pages**: Hide the usual side parts for landing pages and big guides.
 - ⏸️ **Active or inactive**: Prepare pages early and publish them when you are ready.
 
-## 📸 Screenshots
+<h3 align="center">Screenshots</h3>
+
 <p align="center"><img src=".github/assets/panel.png" alt="All your custom pages, their links and status in one list" width="900" /></p>
 <p align="center"><i>All your custom pages, their links and status in one list.</i></p>
 
 <p align="center"><img src=".github/assets/editor.png" alt="Edit the title, link, visibility and content on a single screen" width="900" /></p>
 <p align="center"><i>Edit the title, link, visibility and content on a single screen.</i></p>
 
-## 🚀 Get started
+<h3 align="center">Get started</h3>
+
 1. Open your Pano panel and go to **Addons**.
 2. Find **Pages** and click **Install**.
 3. Open **Pages** in the panel, click **Create Page** and write your first page.
 
-## 💬 Support
+<h3 align="center">Support</h3>
+
 Questions or ideas? Join our [Discord](https://panomc.com/discord) or visit [panomc.com](https://panomc.com).
 
-## 📄 License
+<h3 align="center">License</h3>
+
 Released under the MIT License.
