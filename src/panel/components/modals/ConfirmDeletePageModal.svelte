@@ -90,10 +90,12 @@
 
       if (result.error) {
         console.error('Delete failed:', result.error);
-        const errorKey = `plugins.${pluginId}.errors.${result.error.code}`;
-        const translatedError = $_(errorKey) !== errorKey 
-          ? $_(errorKey) 
-          : (result.error.message || result.error.code || $_(`plugins.${pluginId}.errors.ERROR_UNKNOWN`));
+        const errorKey = `errors.${result.error.code}`;
+        const translated = $_(errorKey);
+        const translatedError =
+          translated !== `plugins.${pluginId}.${errorKey}`
+            ? translated
+            : $_('errors.ERROR_UNKNOWN');
           
         showErrorToast(`plugins.${pluginId}.toasts.error-deleting`, {
           error: translatedError
@@ -106,7 +108,7 @@
     } catch (e) {
       console.error(e);
       showErrorToast(`plugins.${pluginId}.toasts.error-deleting`, {
-        error: $_(`plugins.${pluginId}.errors.ERROR_GENERAL`),
+        error: $_('errors.ERROR_GENERAL'),
       });
     } finally {
       loading = false;

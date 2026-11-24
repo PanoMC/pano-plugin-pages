@@ -14,7 +14,7 @@
     "nav": "Pages",
     "list": {
       "title": "Custom Pages",
-      "total-count": "{count} Custom Pages",
+      "total-count": "{count, plural, one {# custom page} other {# custom pages}}",
       "description": "Create and manage custom pages for your website.",
       "add-page": "Create Page",
       "table": {

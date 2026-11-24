@@ -330,8 +330,13 @@
         if (result.error.code === 'PAGE_URL_ALREADY_EXISTS') {
           urlError = true;
         }
+        const errorKey = 'errors.' + result.error.code;
+        const translated = $_(errorKey);
         showErrorToast(`plugins.${pluginId}.toasts.error-saving`, {
-          error: $_('errors.' + result.error.code),
+          error:
+            translated !== `plugins.${pluginId}.${errorKey}`
+              ? translated
+              : $_('errors.ERROR_UNKNOWN'),
         });
       } else {
         showSuccessToast(
